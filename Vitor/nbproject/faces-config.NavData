@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="CidadeForm.xhtml" x="1025" y="535" zoom="true"/>
+        <Node id="PaisForm.xhtml" x="555" y="528" zoom="true"/>
+        <Node id="index.xhtml" x="619" y="13" zoom="true"/>
+        <Node id="Endereco.xhtml" x="96" y="290" zoom="true"/>
+        <Node id="Pais.xhtml" x="545" y="285" zoom="true"/>
+        <Node id="Cidade.xhtml" x="1013" y="303" zoom="true"/>
+        <Node id="EnderecoForm.xhtml" x="77" y="540" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

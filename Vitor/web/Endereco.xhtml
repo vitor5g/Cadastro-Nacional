@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Cadastro Nacional</title>
+        <h:outputScript name="jquery.js" library="js"></h:outputScript>
+        <h:outputScript name="endereco.js" library="js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <h:form>
+            <b:navBar brand="Index" brandHref="/Vitor"  inverse="true">
+                <b:navbarLinks>
+                    <b:navLink value="Países" action="indexToPais" href="Pais.xhtml"></b:navLink>
+                    <b:navLink value="Cidades" action="indexToCidade" href="Cidade.xhtml"></b:navLink>
+                    <b:navLink value="Endereços" action="refresh" href="Endereco.xhtml"></b:navLink>
+                </b:navbarLinks>
+            </b:navBar>
+        </h:form>
+        <div align="center">
+            <h2 style="align-items: center">Endereços</h2>
+        </div>
+
+        <div id="gridEndereco" align="center" style="width: 90%; margin-left: 5%; margin-top: 2%;">
+
+            <h:message for="msg" style="color: red; font-family: Arial, Helvetica, sans-serif; font-size: 18px;" id="msg" class="msg"/>
+            <b:form id="formEndereco">
+
+                <div align="left" style="margin-bottom: 20px;">
+                    <b:commandButton id="insert" value="Cadastrar" action="#{enderecoController.insert}" look="success"></b:commandButton>
+                </div>
+                <b:dataTable var="umEnd"
+                             value="#{enderecoController.enderecos}"
+                             id="endTable"
+                             style="align-items: center; text-align: center; align-content: center; position: relative;"
+                             custom-options="dom: 'lfrtiBp',buttons: ['copy','csv',{extend: 'excelHtml5', exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]}},{extend: 'pdfHtml5', exportOptions: {columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]}},'print']">
+                    <b:dataTableColumn value="#{umEnd.endereco_id}" label="ID" order="asc" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.endereco}"  label="Endereço" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.endereco2}" label="Endereço 2" width="15%" style="display: none; align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.bairro}"  label="Bairro" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.cidade_id.cidade}" label="Cidade" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.cidade_id.pais_id.pais}" label="País" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.cep}" label="CEP" style="display: none; align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.telefone}" label="Telefone" style=" display: none; align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn label="Ultima Atualização" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;" >
+                        <h:outputText value="#{umEnd.ultima_atualizacao}">
+                            <f:convertDateTime pattern="dd/MM/yyy" />
+                        </h:outputText>
+                        <!--<f:convertDateTime pattern="dd/MM/yyy"/>-->
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Opções" width="25%" style="align-items: center; text-align: center; align-content: center; padding-bottom: 2%;">
+                        <b:commandButton id="detail" style="display: inline" value="Detalhar" icon="list-alt" onclick="detail_it(this); javascript:return false;"></b:commandButton>
+                        &nbsp;
+                        <b:commandButton id="edit" style="display: inline" value="Editar" icon="edit" action="enderecoToForm" >
+                            <f:setPropertyActionListener target="#{enderecoController.endereco}" value="#{umEnd}"/>
+                        </b:commandButton>
+                        &nbsp;
+                        <b:commandButton style="display: inline" value="Deletar" iconAwesome="trash" action="#{enderecoController.finalizaDelecao()}">
+                            <f:setPropertyActionListener target="#{enderecoController.endereco}" value="#{umEnd}"/>
+                        </b:commandButton>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </b:form> 
+        </div>
+
+        <b:modal title="Detalhes do Endereço" styleClass="responsiveModalPseudoClass" id="responsiveModal">
+            <b:form>
+                <b:formGroup>
+                    <b:inputText span="6" id="endereco_id" visible="xs,md" class="endereco_id">
+
+                    </b:inputText>
+
+                    <b:inputText span="6" id="endereco" label="Endereço" class="endereco" disabled="true"  maxlength="50" style="width: 100%;">
+
+                    </b:inputText>
+
+                    <b:inputText span="6" id="endereco2" label="Complemento" disabled="true" class="endereco2" maxlength="50" >
+
+                    </b:inputText>
+
+                    <b:inputText span="6" id="pais" label="País" disabled="true" class="pais" maxlength="20" size="10" >
+
+                    </b:inputText>
+                    <b:inputText span="6" id="cidade" label="Cidade" disabled="true" class="cidade" maxlength="20" size="10" >
+
+                    </b:inputText>
+
+                    <b:inputText span="6" id="bairro" label="Bairro" class="bairro" disabled="true" maxlength="20" size="20" >
+
+                    </b:inputText>
+                    <b:inputText span="6" id="cep" label="CEP" class="cep" disabled="true" render-label="true">
+
+                    </b:inputText>
+
+                    <b:inputText span="6" id="telefone" label="Telefone" disabled="true" class="telefone" >
+
+                    </b:inputText>
+                </b:formGroup>
+                    <b:button value="Fechar" dismiss="modal" look="primary" style="margin-top: 10px; margin-left: 500px" />
+            </b:form>
+        </b:modal>
+
+    </h:body>
+</html>
+

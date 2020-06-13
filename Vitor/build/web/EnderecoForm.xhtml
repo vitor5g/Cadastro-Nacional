@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Cadastro Nacional</title>
+        <h:outputScript name="jquery.js" library="js"></h:outputScript>
+        <h:outputScript name="enderecoForm.js" library="js"></h:outputScript>
+
+    </h:head>
+    <h:body>
+        <h:form>
+            <b:navBar brand="Index" brandHref="/Vitor"  inverse="true">
+                <b:navbarLinks>
+                    <b:navLink value="Países" action="refresh" href="Pais.xhtml"></b:navLink>
+                    <b:navLink value="Cidades" action="refresh" href="Cidade.xhtml"></b:navLink>
+                    <b:navLink value="Endereços" action="formToEndereco" href="Endereco.xhtml"></b:navLink>
+                </b:navbarLinks>
+            </b:navBar>
+        </h:form>
+        <div align="center">
+            <h2 id="titulo" style="align-items: center">Cadastro de Endereços</h2>
+        </div>
+        <center>
+            <span style="color: red; font-family: Arial, Helvetica, sans-serif; font-size: 14px; align-items: center; text-align: center" id="msg" class="msg"></span>
+        </center>
+
+
+        <!--<b:modal title="Cadastrar Endereço" styleClass="responsiveModalPseudoClass" id="responsiveModal">-->
+        <b:form style="margin-left: 10%; width: 100%;" id="formEndereco2" prependId="false">
+            <b:formGroup id="formEndereco">
+
+                <!--                <b:selectOneMenu id="selectPais"
+                                                 span="3"
+                                                 label="País"
+                                                 value="#{enderecoController.endereco.cidade_id.pais_id}"
+                                                 style="width: 40%">
+                                    <f:selectItem itemLabel="Selecione"
+                                                  itemValue="-1"/>
+                                    <f:selectItems value="#{paisController.paises}"
+                                                   var="pais"
+                                                   itemLabel="#{pais.pais}"
+                                                   itemValue="#{pais.pais_id}"/>
+                
+                
+                                </b:selectOneMenu>-->
+
+                <b:inputText span="3" id="endereco_id" value="#{enderecoController.endereco.endereco_id}" style="display: none;" visible="...sm"  class="endereco_id">
+
+                </b:inputText>
+
+                <b:inputText span="3" id="endereco" class="endereco" label="Endereço*" value="#{enderecoController.endereco.endereco}" maxlength="50" style="width: 100%;"/>
+
+                <b:inputText span="3" id="endereco2" label="Complemento" value="#{enderecoController.endereco.endereco2}" class="endereco2" maxlength="50" >
+
+                </b:inputText>
+
+                <b:selectOneMenu id="selectCidade"
+                                 class="cidade"
+                                 span="4"
+                                 label="Cidade*"
+                                 value="#{enderecoController.endereco.cidade_id.cidade_id}"
+                                 style="width: 40%">
+                    <f:selectItem itemLabel="Selecione"
+                                  itemValue=" "/>
+                    <f:selectItems value="#{cidadeController.cidades}"
+                                   var="city"
+                                   itemLabel="#{city.pais_id.pais} - #{city.cidade} "
+                                   itemValue="#{city.cidade_id}"/>
+
+
+                </b:selectOneMenu>
+
+
+                <b:inputText span="3" id="bairro" label="Bairro*" value="#{enderecoController.endereco.bairro}" class="bairro" maxlength="20" size="20" >
+
+                </b:inputText>
+                <b:inputText span="3" id="cep" label="CEP" class="cep" mask="{regex:'[0-9]*'}" value="#{enderecoController.endereco.cep}" render-label="true">
+
+                </b:inputText>
+
+                <b:inputText span="3" id="telefone" style="width: 60%;" label="Telefone*" mask="{regex:'\\+\*[0-9]*'}"  value="#{enderecoController.endereco.telefone}" class="telefone" >
+
+                </b:inputText>
+            </b:formGroup>
+
+            <div id="footerForm" style="display: inline-block; margin-top: 35px; margin-right: 650px; width: 80%;">
+                    <b:commandButton value="Voltar" id="btnVoltar" class="btnVoltar" action="formToEndereco"></b:commandButton>
+                <span id="btnCadastrar">
+                        <b:commandButton id="btnInsert" class="btnInsert" value="Cadastrar" look="primary" action="#{enderecoController.finalizaInclusao()}" ></b:commandButton>
+                </span>
+                <span id="btnEditar" style="display: none">
+                        <b:commandButton value="Editar" id="btnUpdate" class="btnUpdate" look="primary" action="#{enderecoController.finalizaEdicao()}"  ></b:commandButton>
+
+                </span>
+            </div>
+        </b:form>
+        <!--</b:modal>-->
+
+        <b:modal title="Cadastrar Endereço" styleClass="responsiveModalPseudoClass" id="responsiveModal">
+            <b:form>
+                <h2 align="center">Endereço Cadastrado com sucesso</h2>
+                    <b:button value="Close" dismiss="modal" style="margin-top: 15px; margin-left: 400px" />
+                    <b:commandButton value="Ok" look="primary" action="formToEndereco" style="margin-top: 15px;" />
+            </b:form>
+        </b:modal>
+
+    </h:body>
+</html>
+

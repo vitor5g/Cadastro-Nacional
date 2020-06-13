@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Cadastro Nacional</title>
+        <h:outputScript name="jquery.js" library="js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <h:form>
+            <b:navBar brand="Index" brandHref="/Vitor"  inverse="true">
+                <b:navbarLinks>
+                    <b:navLink value="Países" action="indexToPais" href="faces/Pais.xhtml"></b:navLink>
+                    <b:navLink value="Cidades" action="indexToCidade" href="faces/Cidade.xhtml"></b:navLink>
+                    <b:navLink value="Endereços" action="indexToEndereco" href="faces/Endereco.xhtml"></b:navLink>
+                </b:navbarLinks>
+            </b:navBar>
+        </h:form>
+        <div id="gridEndereco" align="center" style="width: 60%; margin-left: 20%; margin-top: 2%;">
+            <h4>Ultimos Endereços Cadastrados</h4>
+            <b:form id="formEndereco">
+                <b:commandButton style="margin-left: 90%; margin-bottom: 1%" value="Gerenciar" icon="th" action="indexToEndereco" look="primary"></b:commandButton>
+                <b:dataTable var="umEnd"
+                             value="#{indexController.enderecos}"
+                             id="endTable"
+                             page-length="5"
+                             pageLength="5"
+                             page-length-menu="5"
+                             pageLengthMenu="5"
+                             style="align-items: center; text-align: center; align-content: center; position: relative;">
+                    <b:dataTableColumn value="#{umEnd.endereco_id}" label="ID" order="asc" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.endereco}"  label="Endereço" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.endereco2}" label="Endereço 2" width="15%" style="display: none; align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.bairro}"  label="Bairro" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.cidade_id.cidade}" label="Cidade" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.cidade_id.pais_id.pais}" label="País" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.cep}" label="CEP" style="display: none; align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umEnd.telefone}" label="Telefone" style=" display: none; align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                </b:dataTable>
+            </b:form> 
+        </div>
+        <div id="gridCidade" align="center" style="width: 60%; margin-left: 20%; margin-top: 2%;">
+            <h4>Ultimas Cidades Cadastradas</h4>
+            <b:form id="formCidade">
+                <b:commandButton style="margin-left: 90%; margin-bottom: 1%" icon="th" value="Gerenciar" action="indexToCidade" look="primary"></b:commandButton>
+                <b:dataTable var="umCity"
+                             value="#{indexController.cidades}"
+                             page-length="5"
+                             pageLength="5"
+                             page-length-menu="5"
+                             pageLengthMenu="5"
+                             id="endTable"
+                             style="align-items: center; text-align: center; align-content: center; position: relative;">
+                    <b:dataTableColumn value="#{umCity.cidade_id}" label="ID" order="asc" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umCity.cidade}"  label="Nome" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umCity.pais_id.pais}"  label="Páis" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                </b:dataTable>
+            </b:form> 
+        </div>
+
+        <div id="gridPais" align="center" style="width: 60%; margin-left: 20%; margin-top: 2%;">
+            <h4>Ultimos Países Cadastrados</h4>
+            <b:form id="formPais">
+                <b:commandButton style="margin-left: 90%; margin-bottom: 1%" icon="th" value="Gerenciar"  action="indexToPais" look="primary"></b:commandButton>
+                <b:dataTable var="umPais"
+                             value="#{indexController.paises}"
+                             page-length="5"
+                             pageLength="5"
+                             page-length-menu="5"
+                             pageLengthMenu="5"
+                             id="endTable"
+                             style="align-items: center; text-align: center; align-content: center; position: relative;">
+                    <b:dataTableColumn value="#{umPais.pais_id}" label="ID" order="asc" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umPais.pais}"  label="Nome" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                </b:dataTable>
+            </b:form> 
+        </div>
+
+    </h:body>
+</html>
+

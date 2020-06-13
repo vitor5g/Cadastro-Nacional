@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Cadastro Nacional</title>
+        <h:outputScript name="jquery.js" library="js"></h:outputScript>
+        <h:outputScript name="pais.js" library="js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <h:form>
+            <b:navBar brand="Index" brandHref="/Vitor"  inverse="true">
+                <b:navbarLinks>
+                    <b:navLink value="Países" action="refresh" href="Pais.xhtml"></b:navLink>
+                    <b:navLink value="Cidades" action="indexToCidade" href="Cidade.xhtml"></b:navLink>
+                    <b:navLink value="Endereços" action="indexToEndereco" href="Endereco.xhtml"></b:navLink>
+                </b:navbarLinks>
+            </b:navBar>
+        </h:form>
+        <div align="center">
+            <h2 style="align-items: center">Países</h2>
+        </div>
+
+        <div id="gridPais" align="center" style="width: 90%; margin-left: 5%; margin-top: 2%;">
+            <h:message for="msg" style="color: red; font-family: Arial, Helvetica, sans-serif; font-size: 18px;" id="msg" class="msg"/>
+            <b:form>
+                <div align="left" style="margin-bottom: 20px;">
+                    <b:commandButton id="insert" value="Cadastrar" action="#{paisController.insert}" look="success"></b:commandButton>
+                </div>
+                <b:dataTable var="umPais"
+                             value="#{paisController.paises}"
+                             id="endTable"
+                             style="align-items: center; text-align: center; align-content: center; position: relative;"
+                             custom-options="dom: 'lfrtiBp',buttons: ['copy','csv',{extend: 'excelHtml5', exportOptions: {columns: [ 0, 1, 2 ]}},{extend: 'pdfHtml5', exportOptions: {columns: [ 0, 1, 2 ]}},'print']">
+                    <b:dataTableColumn value="#{umPais.pais_id}" label="ID" order="asc" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn value="#{umPais.pais}"  label="Nome" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;"/>
+                    <b:dataTableColumn label="Ultima Atualização" style="align-items: center; text-align: center; align-content: center; padding-bottom: 1%;" >
+                        <h:outputText value="#{umPais.ultima_atualizacao}">
+                            <f:convertDateTime pattern="dd/MM/yyy" />
+                        </h:outputText>
+                        <!--<f:convertDateTime pattern="dd/MM/yyy"/>-->
+                    </b:dataTableColumn>
+                    <b:dataTableColumn label="Opções" width="25%" style="align-items: center; text-align: center; align-content: center; padding-bottom: 2%;">
+                        <b:commandButton id="edit" style="display: inline" value="Editar" icon="edit" action="paisToForm" >
+                            <f:setPropertyActionListener target="#{paisController.pais}" value="#{umPais}"/>
+                        </b:commandButton>
+                        &nbsp;
+                        <b:commandButton style="display: inline" value="Deletar" iconAwesome="trash" action="#{paisController.finalizaDelecao()}">
+                            <f:setPropertyActionListener target="#{paisController.pais}" value="#{umPais}"/>
+                        </b:commandButton>
+                    </b:dataTableColumn>
+                </b:dataTable>
+            </b:form> 
+        </div>
+
+    </h:body>
+</html>
+
